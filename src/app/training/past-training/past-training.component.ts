@@ -35,7 +35,6 @@ export class PastTrainingComponent implements OnInit, OnDestroy, AfterViewInit {
     // Connect the angular table apis to the table data source
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    console.log(this.dataSource);
   }
 
   doFilter(event: Event) {
