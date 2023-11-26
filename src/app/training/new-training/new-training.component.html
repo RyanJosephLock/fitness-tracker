@@ -6,7 +6,7 @@
             </mat-card-title>
             <mat-spinner *ngIf="exercises == undefined" style="margin: 0 auto;"></mat-spinner>
             <mat-card-content fxLayoutAlign="center">
-                <mat-form-field *ngIf="exercises != undefined">
+                <mat-form-field *ngIf="exercises != undefined && exercises != []">
                 <mat-label>Exercises</mat-label>
                 <mat-select placeholder="Choose Exercise" ngModel name="exercise" required>
                     <!-- Adding the async pipe to the below structural directive due to it being sourced via firestore observable: ASYNC REMOVED DUE TO SUBSCRIPTION MOVED TO SERVICE -->
@@ -16,8 +16,9 @@
                 </mat-select>
                 </mat-form-field>
             </mat-card-content>
-            <mat-card-actions *ngIf="exercises != undefined" fxLayoutAlign="center">
-                <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Start</button>
+            <mat-card-actions fxLayoutAlign="center" *ngIf="exercises == undefined">
+                <button *ngIf="exercises != null" type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Start</button>
+                <button *ngIf="exercises == null" type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Fetch Again</button>
             </mat-card-actions>
         </mat-card>
     </form>

@@ -4,18 +4,22 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import { Exercise } from './exercise.model';
+import { UIService } from '../shared/ui.service';
 
 
 @Injectable()
 export class TrainingService {
     exerciseChanged = new Subject<Exercise | null>();
-    exercisesChanged = new Subject<Exercise[]>();
+    exercisesChanged = new Subject<any>(); // Using any because "Exercise[] | null wasn't working"
     finishedExercisesChanged = new Subject<Exercise[]>();
     private availableExercises: Exercise[] = [];
     private runningExercise!: Exercise | null;
     private fbSubs: Subscription[] = [];
 
-    constructor(private db: AngularFirestore) {}
+    constructor(
+        private db: AngularFirestore,
+        private uiService: UIService
+    ) {}
 
     fetchAvailableExercises() {
         this.fbSubs.push(this.db
@@ -34,11 +38,12 @@ export class TrainingService {
                     });
                 })
             )
-            .subscribe((exercises: Exercise[]) => {
+            .subscribe((exercises: any) => {
                 this.availableExercises = exercises;
                 this.exercisesChanged.next([...this.availableExercises]) // Create a new subject to emit changed exercises
             }, error => {
-                // console.log(error);
+                this.uiService.showSnackBar('Fetching exercises failed, please try again later.', '', 3000);
+                this.exercisesChanged.next(null);
             }));
     }
 

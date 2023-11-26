@@ -23,6 +23,10 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
         this.exercises = exercises}
     );
     // Fetch initial firestore exercises
+    this.fetchExercises();
+  }
+
+  fetchExercises() {
     this.trainingService.fetchAvailableExercises();
   }
 
