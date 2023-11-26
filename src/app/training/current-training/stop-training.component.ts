@@ -3,12 +3,12 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-stop-training',
-    template: `<h1 mat-dialog-title>Are you sure?</h1>
-                <p>You already finished {{ passedData.progress }}%</p>
-                <mat-dialog-actions>
+    template: `<div style="padding: 20px;"><h1 mat-dialog-title>Are you sure?</h1>
+                <p style="text-align: center;">You already finished {{ passedData.progress }}%</p>
+                <mat-dialog-actions style="justify-content: center;">
                     <button mat-button [mat-dialog-close]="true">Yes</button>
                     <button mat-button [mat-dialog-close]="false">No</button>
-                </mat-dialog-actions>`
+                </mat-dialog-actions></div>`
 })
 
 export class StopTrainingComponent {

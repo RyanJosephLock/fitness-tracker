@@ -11,7 +11,7 @@ import { Exercise } from '../exercise.model';
   styleUrls: ['./new-training.component.scss']
 })
 export class NewTrainingComponent implements OnInit, OnDestroy {
-  exercises!: Exercise[]; 
+  exercises!: Exercise[] | null; 
   exerciseSubscription?: Subscription;
 
   constructor(private trainingService: TrainingService) {}
@@ -19,8 +19,9 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // Subscribe to firestore exercise changes
     this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe(
-      (exercises: Exercise[]) => {
-        this.exercises = exercises}
+      exercises => {
+        this.exercises = exercises
+      }
     );
     // Fetch initial firestore exercises
     this.fetchExercises();
@@ -37,7 +38,9 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // Unsubscribe on component destroy
-    this.exerciseSubscription?.unsubscribe();
+    if(this.exerciseSubscription) {
+      this.exerciseSubscription.unsubscribe();
+    }
   }
 
 }

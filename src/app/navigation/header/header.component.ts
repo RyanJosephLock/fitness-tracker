@@ -31,7 +31,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // Avoid memory leaks by unsubscribing
-    this.authSubscription.unsubscribe();
+    if(this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
   }
 
 }
