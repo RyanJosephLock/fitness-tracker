@@ -24,6 +24,7 @@ import { StopTrainingComponent } from './training/current-training/stop-training
 import { AuthService } from './auth/auth.service';
 import { TrainingService } from './training/training.service';
 import { environment } from '../environments/environment';
+import { UIService } from './shared/ui.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,13 @@ import { environment } from '../environments/environment';
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
-  providers: [AuthService, TrainingService], // provide services here to ensure it's the same service used by all components
-  bootstrap: [AppComponent]
+  providers: [
+    AuthService, 
+    TrainingService, 
+    UIService 
+  ], // provide services here to ensure it's the same service used by all components
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

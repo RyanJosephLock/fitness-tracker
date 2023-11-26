@@ -11,9 +11,9 @@ export class TrainingService {
     exerciseChanged = new Subject<Exercise | null>();
     exercisesChanged = new Subject<Exercise[]>();
     finishedExercisesChanged = new Subject<Exercise[]>();
-    private availableExercises: Exercise[] = []
+    private availableExercises: Exercise[] = [];
     private runningExercise!: Exercise | null;
-    private fbSubs!: Subscription[];
+    private fbSubs: Subscription[] = [];
 
     constructor(private db: AngularFirestore) {}
 
@@ -64,7 +64,7 @@ export class TrainingService {
         // Push completed exercise into array
         if(this.runningExercise) {
                 this.addDataToDatabase({
-                ...this.runningExercise, 
+                ...this.runningExercise,
                 date: new Date(), 
                 state: "completed"
             });
